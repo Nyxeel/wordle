@@ -6,7 +6,7 @@
 /*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:46:46 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:50:56 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,6 +148,15 @@ void	print_sad_message(Data data)
 	printf("The correct word is %s\n", data.secret_word);
 }
 
+int	init_data(Data *data)
+{
+	memset(data, 0, sizeof(Data));
+	data->prompt = ft_strdup("Your turn: ");
+	if (!data->prompt)
+		return (0);
+	return (1);
+}
+
 int	main(int ac, char **av)
 {
 	Data	data;
@@ -161,10 +170,8 @@ int	main(int ac, char **av)
 	line = NULL;
 	if (ac != 1)
 		return (0);
-	memset(&data, 0, sizeof(Data));
-	data.prompt = ft_strdup("Your turn: ");
-	if (!data.prompt)
-		return (1);
+	if (!init_data(&data))
+		exit(1);
 	srand(time(NULL));
 	if (!get_secret_word(&data))
 		cleanup(&data);
