@@ -6,7 +6,7 @@
 /*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:38:29 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:46:46 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ void	print_invitation(void)
 
 void	congratulation(void)
 {
+	printf("Congrats! You win!\n");
 }
 
 void	print_status(Data *data)
@@ -141,6 +142,12 @@ int	check_comparision(void)
 	return (0);
 }
 
+void	print_sad_message(Data data)
+{
+	printf("END. You loose\n");
+	printf("The correct word is %s\n", data.secret_word);
+}
+
 int	main(int ac, char **av)
 {
 	Data	data;
@@ -176,7 +183,8 @@ int	main(int ac, char **av)
 	{
 		congratulation();
 	}
-	printf("END");
+	else
+		print_sad_message(data);
 	cleanup(&data);
 	return (0);
 }
