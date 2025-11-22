@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:21:36 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/22 16:04:12 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/22 19:15:52 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	parse_input(Data *data, char *input)
 	(void) data;
 	int i = 0;
 	if (ft_strlen(input) != 5)
-		return (printf("\nEnter exactly 5 characters - try again"), 0);
+		return (printf("\nEnter exactly 5 characters - try again\n"), 0);
 	while (input[i])
 	{
 		if (!ft_isalpha(input[i]))

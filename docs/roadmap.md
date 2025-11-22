@@ -3,9 +3,7 @@
 
 2. Read user guesses (up to 6 attempts)
 Each guess must:
-• be exactly 5 letters
-• contain only alphabet characters
-• exist in the dictionary file
+### DONE
 
 3. Implement the comparison logic (core of Wordle)
 For each letter:

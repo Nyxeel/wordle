@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
+/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:58:39 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 21:24:19 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	get_secret_word(Data *data)
 void	print_invitation(void)
 {
 	printf("WORDLE\n");
+	printf("Total words availible 12972\n\n");
 }
 
 void	congratulation(void)
@@ -133,15 +134,9 @@ char	*get_user_input(Data *data)
 				line = NULL;
 				continue ;
 			}
-			printf("\nInput: %s\n", line);
 		}
 	}
 	return (line);
-}
-
-int	check_comparision(void)
-{
-	return (0);
 }
 
 void	print_sad_message(Data data)
@@ -153,12 +148,12 @@ void	print_sad_message(Data data)
 int	init_data(Data *data)
 {
 	memset(data, 0, sizeof(Data));
-	data->prompt = ft_strdup("Your turn: ");
+	data->prompt = ft_strdup("Input: ");
 	if (!data->prompt)
 		return (0);
 	for (int i = 0; i < 6; i++)
 	{
-		data->attempts[i] = strdup("_____");
+		data->attempts[i] = ft_strdup("\t_ _ _ _ _\n");
 	}
 	return (1);
 }
@@ -169,6 +164,7 @@ int	main(int ac, char **av)
 	char	*line;
 	int		won;
 	int		attempt;
+	t_color color[6];
 
 	won = 0;
 	attempt = 0;
@@ -182,13 +178,13 @@ int	main(int ac, char **av)
 	if (!get_secret_word(&data))
 		cleanup(&data);
 	if (VERBOSE)
-		printf("SECRET WORD: %s", data.secret_word);
+		printf("SECRET WORD: %s\n", data.secret_word);
 	print_invitation();
 	while (!won && attempt < 6)
 	{
 		print_status(&data);
 		line = get_user_input(&data);
-		won = check_comparision();
+		check_comparison(&data, color, line);
 		attempt++;
 		free(line);
 	}
