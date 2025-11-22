@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 00:13:50 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/22 16:30:49 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,12 @@ typedef struct s_data
 {
 	char	*prompt;
 	char	*secret_word;
-	char	**argv;
-	int		fd;
+	char 	**wordlist;
+	uint	number_of_tries;
+
+
 }	Data;
 
+int	parse_input(Data *data, char *input);
 
 #endif

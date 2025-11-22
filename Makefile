@@ -14,6 +14,7 @@ OBJ_DIR     = obj
 
 SRCS = \
 	main.c \
+	read_input.c \
 
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRCS:.c=.o))
 
