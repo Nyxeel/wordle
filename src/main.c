@@ -6,7 +6,7 @@
 /*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:50:56 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:58:39 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,10 @@ void	congratulation(void)
 
 void	print_status(Data *data)
 {
-	(void)data;
-	printf("STATUS\n");
+	for (int i = 0; i < 6; i++)
+	{
+		printf("%s\n", data->attempts[i]);
+	}
 }
 
 char	*get_user_input(Data *data)
@@ -154,6 +156,10 @@ int	init_data(Data *data)
 	data->prompt = ft_strdup("Your turn: ");
 	if (!data->prompt)
 		return (0);
+	for (int i = 0; i < 6; i++)
+	{
+		data->attempts[i] = strdup("_____");
+	}
 	return (1);
 }
 

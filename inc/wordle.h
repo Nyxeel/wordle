@@ -6,7 +6,7 @@
 /*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:17:05 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:56:49 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_data
 	char	*prompt;
 	char	*secret_word;
 	char	**wordlist;
-	char	**attempts;
+	char	*attempts[6];
 	uint	number_of_tries;
 
 }			Data;
