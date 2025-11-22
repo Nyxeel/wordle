@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 16:05:04 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/22 17:35:16 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	free_darr(Data *data)
 {
+	int	i;
+
 	if (!data->wordlist)
 		return ;
-	int i = 0;
+	i = 0;
 	while (data->wordlist[i])
 		free(data->wordlist[i++]);
 	free(data->wordlist);
@@ -39,17 +41,19 @@ void	cleanup(Data *data)
 	exit(0);
 }
 
-
 ssize_t	count_dictionary_lines(Data *data)
 {
-	int fd = open("words.txt", O_RDONLY);
+	int		fd;
+	int		count;
+	char	*line;
+
+	fd = open("words.txt", O_RDONLY);
 	if (fd == -1)
 		return (printf("file not found!\n"), cleanup(data), 1);
 	data->wordlist = calloc(12972 + 1, sizeof(char *));
 	if (!data->wordlist)
 		return (close(fd), -1);
-	int count = 0;
-	char *line;
+	count = 0;
 	while ((line = get_next_line(fd)) != NULL)
 	{
 		data->wordlist[count] = ft_strdup(line);
@@ -65,21 +69,21 @@ ssize_t	count_dictionary_lines(Data *data)
 	return (count);
 }
 
-
-
 int	get_secret_word(Data *data)
 {
-	ssize_t count;
-
+	ssize_t	count;
+	ssize_t	rnd_num;
+	ssize_t	i;
+	char	*line;
 
 	count = count_dictionary_lines(data);
 	if (count == -1)
 		return (0);
-	ssize_t rnd_num  = (rand() % count);
+	rnd_num = (rand() % count);
 	if (VERBOSE)
 		printf("RND NUMBER: %li\n", rnd_num);
-	ssize_t i = 0;
-	char *line = NULL;
+	i = 0;
+	line = NULL;
 	while (data->wordlist[i] != NULL)
 	{
 		if (i == rnd_num)
@@ -93,12 +97,61 @@ int	get_secret_word(Data *data)
 	return (0);
 }
 
+void	print_invitation(void)
+{
+	printf("WORDLE\n");
+}
+
+void	congratulation(void)
+{
+}
+
+void	print_status(Data *data)
+{
+	(void)data;
+	printf("STATUS\n");
+}
+
+char	*get_user_input(Data *data)
+{
+	char	*line;
+
+	line = NULL;
+	while (!line)
+	{
+		line = readline(data->prompt);
+		if (!line) // NULL (empty imput) → Ctrl+D pressed (EOF)
+			cleanup(data);
+		if (*line) // input
+		{
+			if (!parse_input(data, line))
+			{
+				free(line);
+				line = NULL;
+				continue ;
+			}
+			printf("\nInput: %s\n", line);
+		}
+	}
+	return (line);
+}
+
+int	check_comparision(void)
+{
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	Data	data;
-	(void) 	av;
-	char	*line = NULL;
+	char	*line;
+	int		won;
+	int		attempt;
 
+	won = 0;
+	attempt = 0;
+	(void)av;
+	line = NULL;
 	if (ac != 1)
 		return (0);
 	memset(&data, 0, sizeof(Data));
@@ -110,22 +163,19 @@ int	main(int ac, char **av)
 		cleanup(&data);
 	if (VERBOSE)
 		printf("SECRET WORD: %s", data.secret_word);
-	while (1)
+	print_invitation();
+	while (!won && attempt < 6)
 	{
-		line = readline(data.prompt);
-		if (!line) // NULL (empty imput) → Ctrl+D pressed (EOF)
-			return (cleanup(&data), 0);
-		if (*line) // input
-		{
-			if (!parse_input(&data, line))
-			{
-				free(line);
-				continue;
-			}
-			printf("\nInput: %s\n", line);		
-		}
+		print_status(&data);
+		line = get_user_input(&data);
+		won = check_comparision();
 		free(line);
 	}
+	if (won)
+	{
+		congratulation();
+	}
+	printf("END");
 	cleanup(&data);
 	return (0);
 }
