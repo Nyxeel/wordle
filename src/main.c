@@ -6,7 +6,7 @@
 /*   By: ssharmaz <ssharmaz@student.42vienna.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 17:35:16 by ssharmaz         ###   ########.fr       */
+/*   Updated: 2025/11/22 17:38:29 by ssharmaz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,6 +169,7 @@ int	main(int ac, char **av)
 		print_status(&data);
 		line = get_user_input(&data);
 		won = check_comparision();
+		attempt++;
 		free(line);
 	}
 	if (won)
