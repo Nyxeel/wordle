@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   restart.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:13:02 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 17:28:13 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 21:37:33 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int restart(Data *data)
 			}
 			else if (*line == NO)
 			{
-				printf("\nThanks for gaming!");
+				printf("\nThanks for gaming!\n");
 				return(free(line), END);
 			}
 			else

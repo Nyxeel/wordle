@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_secret.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 15:47:31 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 17:21:45 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 21:30:45 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static ssize_t	count_dictionary_lines(Data *data)
 		printf("file not found!\n");
 		return (-1);
 	}
-	data->wordlist = calloc(12972 + 1, sizeof(char *)); // words.txt has 12972 lines!
+	data->wordlist = calloc(12971 + 1, sizeof(char *)); // words.txt has 12972 lines!
 	if (!data->wordlist)
 		return (close(fd), -1);
 	count = 0;
@@ -51,7 +51,7 @@ int	get_secret_word(Data *data)
 	count = count_dictionary_lines(data);
 	if (count == -1)
 		return (0);
-	rnd_num = (rand() % count);
+	rnd_num = rand() % count;
 	i = 0;
 	while (data->wordlist[i] != NULL)
 	{

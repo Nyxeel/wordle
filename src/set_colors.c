@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   set_colors.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:59:37 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 15:39:12 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 21:32:21 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wordle.h"
 
-//COLOR THEM 
+//COLOR THEM
 int	set_colors(Data *data, t_color *color, char *str)
 {
 	int i = 0;
@@ -23,16 +23,14 @@ int	set_colors(Data *data, t_color *color, char *str)
 
 	for(int i = 0; i < 5; i++)
 	{
-		freq[(unsigned char) data->secret_word[i]]++;
-		if (VERBOSE)
-			printf("%c: %i\n", data->secret_word[i], freq[(unsigned char) data->secret_word[i]]);
+		freq[(unsigned char)data->secret_word[i]]++;
 	}
 	while (str[i])
 	{
-		if ((str[i] == data->secret_word[i]))
+		if (str[i] == data->secret_word[i])
 		{
 			color[j].state[i] = GREEN;
-			freq[(unsigned char)c[i]]--;
+			freq[(unsigned char) data->secret_word[i]]--;
 		}
 		else
 		{
@@ -48,7 +46,7 @@ int	set_colors(Data *data, t_color *color, char *str)
 		if (color[j].state[i] != GREEN && freq[(unsigned char)c[i]] > 0)
 		{
 			color[j].state[i] = YELLOW;
-			freq[(unsigned char)c[i]]--;
+			freq[(unsigned char) c[i]]--;
 		}
 		i++;
 	}

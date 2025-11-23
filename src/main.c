@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 17:27:29 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 21:29:48 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int ac, char **av)
 	Data	data;
 	char	*line;
 	int		attempt;
-	
+
 start:
 	attempt = 0;
 	(void)av;
@@ -87,12 +87,12 @@ start:
 	}
 	if (attempt == 6)
 		print_lose(&data);
-	else	
+	else
 		print_win(&data);
 	free(line);
 	line = NULL;
 	cleanup(&data, TRY_AGAIN);
 	if (restart(&data))
-		goto start;	
+		goto start;
 	return (0);
 }

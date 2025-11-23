@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
+/*   By: pjelinek <pjelinek@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:21:36 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 15:45:41 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 21:32:59 by pjelinek         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static bool	word_in_dictionary(char *input, Data *data)
 	while (data->wordlist[i])
 	{
 		if (ft_strncmp(data->wordlist[i], input, ft_strlen(input)) == 0)
-			return (true); ///Check for ft_strlen fail ?? 
+			return (true); ///Check for ft_strlen fail ??
 		i++;
 	}
 	return (false);
@@ -35,7 +35,7 @@ int	parse_input(Data *data, char *input)
 	while (input[i])
 	{
 		if (!ft_isalpha(input[i]))
-			return (printf("\nOnly alphabetic character allowed! - try again\n"), 0);
+			return (printf("\nOnly letters allowed! - try again\n"), 0);
 		if (!word_in_dictionary(input, data))
 			return (printf("\nWord ist not in dictionary - try again\n"), 0);
 		i++;
