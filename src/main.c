@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 04:34:24 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:48:30 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ int	init_data(Data *data)
 
 	data->color = ft_calloc(7, sizeof(t_color));
 	if (!data->color)
-		return (1);
+		return (0);
 	srand(time(NULL));
 	return (1);
 }
@@ -157,7 +157,7 @@ start:
 		exit(1);
 	if (!get_secret_word(&data))
 		cleanup(&data, END);
-	print_invitation();
+	print_wordle_logo();
 	while (attempt != 6)
 	{
 		if(VERBOSE)

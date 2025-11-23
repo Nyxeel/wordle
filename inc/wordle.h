@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 04:13:47 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:48:47 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int 	restart(Data *data);
 void	cleanup(Data *data, int flag);
 
 //PRINT
-void	print_invitation(void);
+void	print_wordle_logo(void);
 void	print_status(t_color *color, Data *data, int status);
 void	print_lose_message(Data *data);
 void	congrats(Data *data);

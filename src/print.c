@@ -6,16 +6,22 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:25:50 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 04:31:47 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:52:48 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wordle.h"
 
-void	print_invitation(void)
+  
+
+void	print_wordle_logo(void)
 {
-	printf("WORDLE\n");
-	// printf("Total words availible 12972\n\n");
+	printf("__        _____  ____  ____  _     _____ \n");
+	printf("\\ \\      / / _ \\|  _ \\|  _ \\| |   | ____|\n");
+	printf(" \\ \\ /\\ / / | | | |_) | | | | |   |  _|  \n");
+	printf("  \\ V  V /| |_| |  _ <| |_| | |___| |___ \n");
+	printf("   \\_/\\_/  \\___/|_| \\_\\____/|_____|_____|\n");
+	printf("\n");
 }
 
 void	print_status(t_color *color, Data *data, int status)
