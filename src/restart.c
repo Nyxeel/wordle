@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:13:02 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 04:07:14 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 17:28:13 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int restart(Data *data)
 			if (ft_strlen(line) != 1)
 			{
 				printf("Enter max. 1 letter\n");
+				free(line);
 				continue;
 			}
 			if (*line == YES)
@@ -33,7 +34,10 @@ int restart(Data *data)
 				return(free(line), TRY_AGAIN);
 			}
 			else if (*line == NO)
+			{
+				printf("\nThanks for gaming!");
 				return(free(line), END);
+			}
 			else
 				printf("Just choose between 'y' and 'n'!\n");
 			free(line);

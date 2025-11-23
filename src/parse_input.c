@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_input.c                                       :+:      :+:    :+:   */
+/*   parse_input.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 15:21:36 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 02:09:27 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 15:45:41 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wordle.h"
 
-bool	word_in_dictionary(char *input, Data *data)
+static bool	word_in_dictionary(char *input, Data *data)
 {
 	int i = 0;
 	while (data->wordlist[i])
@@ -28,6 +28,8 @@ int	parse_input(Data *data, char *input)
 {
 	(void) data;
 	int i = 0;
+	if (!input || !*input)
+		return (0);
 	if (ft_strlen(input) != 5)
 		return (printf("\nEnter exactly 5 characters - try again\n"), 0);
 	while (input[i])

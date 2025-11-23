@@ -6,14 +6,13 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 04:48:47 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 17:07:54 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WORDLE_H
 # define WORDLE_H
 # define _DEFAULT_SOURCE
-
 
 # ifndef VERBOSE
 #  define VERBOSE 0
@@ -32,7 +31,6 @@
 # define RUN 0
 # define LOSE 1
 # define WIN 2
-
 
 # include "libft/libft.h"
 # include <errno.h>
@@ -60,8 +58,6 @@ typedef struct s_data
 	char	*prompt;
 	char	*secret_word;
 	char	**wordlist;
-	char	*attempts[6];
-	uint	number_of_tries;
 	t_color	*color;
 
 }	Data;
@@ -70,14 +66,15 @@ int		parse_input(Data *data, char *input);
 int		set_colors(Data *data, t_color *color, char *input);
 int 	restart(Data *data);
 void	cleanup(Data *data, int flag);
+int		get_secret_word(Data *data);
 
 //PRINT
 void	print_wordle_logo(void);
-void	print_status(t_color *color, Data *data, int status);
-void	print_lose_message(Data *data);
-void	congrats(Data *data);
+void	print_game(t_color *color, Data *data, int status);
+void	print_lose(Data *data);
+void	print_win(Data *data);
 
-// wordle.h
+// GLOBAL VAR
 extern int g_counter;
 
 #endif

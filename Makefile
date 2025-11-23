@@ -16,6 +16,8 @@ SRCS = \
 	main.c \
 	parse_input.c \
 	set_colors.c \
+	cleanup.c \
+	get_secret.c \
 	restart.c \
 	print.c \
 

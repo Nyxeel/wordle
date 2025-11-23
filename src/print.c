@@ -6,13 +6,11 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:25:50 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 04:52:48 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 17:43:44 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wordle.h"
-
-  
 
 void	print_wordle_logo(void)
 {
@@ -24,7 +22,7 @@ void	print_wordle_logo(void)
 	printf("\n");
 }
 
-void	print_status(t_color *color, Data *data, int status)
+void	print_game(t_color *color, Data *data, int status)
 {
 	int j = 0;
 	if (VERBOSE)
@@ -63,16 +61,27 @@ void	print_status(t_color *color, Data *data, int status)
 	printf("\n");
 }
 
-void	print_lose_message(Data *data)
+void	print_lose(Data *data)
 {
-	print_status(data->color, data, LOSE);
-	printf("END. You loose\n");
-	printf("The correct word is %s\n", data->secret_word);
-	cleanup(data, TRY_AGAIN);
+	print_game(data->color, data, LOSE);
+	printf("\e[1;91m		      _           _     _ \n");
+	printf(" _   _  ___  _   _   | | ___  ___| |_  | |\n");
+	printf("| | | |/ _ \\| | | |  | |/ _ \\/ __| __| | |\n");
+	printf("| |_| | (_) | |_| |  | | (_) \\__ \\ |_  |_|\n");
+	printf(" \\__, |\\___/ \\__,_|  |_|\\___/|___/\\__| (_)\n");
+	printf(" |___/   \n");
+	printf("\e[0m\n");
+	printf("The correct word is %s", data->secret_word);
 }
 
-void	congrats(Data *data)
+void	print_win(Data *data)
 {
-	print_status(data->color, data, WIN);
-	printf("Congrats! You win!\n");
+	print_game(data->color, data, WIN);
+	printf("\e[1;92m                                           _ \n");
+	printf(" _   _  ___  _   _  __      _____  _ __   | |\n");
+	printf("| | | |/ _ \\| | | | \\ \\ /\\ / / _ \\| '_ \\  | |\n");
+	printf("| |_| | (_) | |_| |  \\ V  V / (_) | | | | |_|\n");
+	printf(" \\__, |\\___/ \\__,_|   \\_/\\_/ \\___/|_| |_| (_)\n");                                 
+	printf(" |___/\n");
+	printf("\e[0m\n");
 }

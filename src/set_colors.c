@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:59:37 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 04:23:40 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 15:39:12 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,14 @@ int	set_colors(Data *data, t_color *color, char *str)
 	{
 		if ((str[i] == data->secret_word[i]))
 		{
-			color[j].str[i] =  str[i];
 			color[j].state[i] = GREEN;
 			freq[(unsigned char)c[i]]--;
 		}
 		else
 		{
-			c[i] = str[i];
 			color[j].state[i] = GREY;
 		}
+		color[j].str[i] =  str[i];
 		i++;
 	}
 	color[j].str[i] = 0; // str[5] is not auto '\0' terminated, it printed garbage values
