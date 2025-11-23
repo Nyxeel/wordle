@@ -6,11 +6,14 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 21:24:19 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 03:40:17 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/wordle.h"
+
+int g_counter = 0;
+
 
 void	free_darr(Data *data)
 {
@@ -25,20 +28,21 @@ void	free_darr(Data *data)
 	data->wordlist = NULL;
 }
 
-void	cleanup(Data *data)
+void	cleanup(Data *data, int flag)
 {
 	if (data->prompt)
 	{
 		free(data->prompt);
 		data->prompt = NULL;
 	}
-	if (data->secret_word)
+	if (data->color)
 	{
-		free(data->secret_word);
-		data->secret_word = NULL;
+		free(data->color);
+		data->color = NULL;
 	}
 	free_darr(data);
-	exit(0);
+	if (flag == END)
+		exit(0);
 }
 
 ssize_t	count_dictionary_lines(Data *data)
@@ -49,8 +53,11 @@ ssize_t	count_dictionary_lines(Data *data)
 
 	fd = open("words.txt", O_RDONLY);
 	if (fd == -1)
-		return (printf("file not found!\n"), cleanup(data), 1);
-	data->wordlist = calloc(12972 + 1, sizeof(char *));
+	{
+		printf("file not found!\n");
+		cleanup(data, END);
+	}
+	data->wordlist = calloc(12972 + 1, sizeof(char *)); // words.txt has 12972 lines!
 	if (!data->wordlist)
 		return (close(fd), -1);
 	count = 0;
@@ -64,8 +71,6 @@ ssize_t	count_dictionary_lines(Data *data)
 	}
 	if (fd >= 0)
 		close(fd);
-	if (VERBOSE)
-		printf("LINES IN FILE: %i\n", count);
 	return (count);
 }
 
@@ -81,7 +86,7 @@ int	get_secret_word(Data *data)
 		return (0);
 	rnd_num = (rand() % count);
 	if (VERBOSE)
-		printf("RND NUMBER: %li\n", rnd_num);
+		printf("RND NWORD IN LINE: %li\n", rnd_num);
 	i = 0;
 	line = NULL;
 	while (data->wordlist[i] != NULL)
@@ -97,24 +102,6 @@ int	get_secret_word(Data *data)
 	return (0);
 }
 
-void	print_invitation(void)
-{
-	printf("WORDLE\n");
-	printf("Total words availible 12972\n\n");
-}
-
-void	congratulation(void)
-{
-	printf("Congrats! You win!\n");
-}
-
-void	print_status(Data *data)
-{
-	for (int i = 0; i < 6; i++)
-	{
-		printf("%s\n", data->attempts[i]);
-	}
-}
 
 char	*get_user_input(Data *data)
 {
@@ -125,7 +112,7 @@ char	*get_user_input(Data *data)
 	{
 		line = readline(data->prompt);
 		if (!line) // NULL (empty imput) → Ctrl+D pressed (EOF)
-			cleanup(data);
+			cleanup(data, END);
 		if (*line) // input
 		{
 			if (!parse_input(data, line))
@@ -139,34 +126,28 @@ char	*get_user_input(Data *data)
 	return (line);
 }
 
-void	print_sad_message(Data data)
-{
-	printf("END. You loose\n");
-	printf("The correct word is %s\n", data.secret_word);
-}
-
 int	init_data(Data *data)
 {
 	memset(data, 0, sizeof(Data));
 	data->prompt = ft_strdup("Input: ");
 	if (!data->prompt)
 		return (0);
-	for (int i = 0; i < 6; i++)
-	{
-		data->attempts[i] = ft_strdup("\t_ _ _ _ _\n");
-	}
+
+	data->color = ft_calloc(7, sizeof(t_color));
+	if (!data->color)
+		return (1);
+	srand(time(NULL));
 	return (1);
 }
 
 int	main(int ac, char **av)
 {
+start:
 	Data	data;
 	char	*line;
-	int		won;
 	int		attempt;
-	t_color color[6];
 
-	won = 0;
+	
 	attempt = 0;
 	(void)av;
 	line = NULL;
@@ -174,26 +155,34 @@ int	main(int ac, char **av)
 		return (0);
 	if (!init_data(&data))
 		exit(1);
-	srand(time(NULL));
+	
 	if (!get_secret_word(&data))
-		cleanup(&data);
+		cleanup(&data, END);
 	if (VERBOSE)
 		printf("SECRET WORD: %s\n", data.secret_word);
 	print_invitation();
-	while (!won && attempt < 6)
+	while (attempt != 6)
 	{
-		print_status(&data);
+		print_status(data.color);
 		line = get_user_input(&data);
-		check_comparison(&data, color, line);
-		attempt++;
+		if (set_colors(&data, data.color, line))
+		{
+			break;
+		}
 		free(line);
+		line = NULL;
+		attempt++;
 	}
-	if (won)
-	{
-		congratulation();
-	}
-	else
-		print_sad_message(data);
-	cleanup(&data);
+	if (attempt == 6)
+		print_lose_message(&data);
+	else	
+		congrats();
+	cleanup(&data, TRY_AGAIN);
+	free(line);
+	line = NULL;
+	if (restart(&data))
+		goto start;	
+	printf("Thanks for gaming!\n");
+
 	return (0);
 }

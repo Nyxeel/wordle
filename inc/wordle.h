@@ -6,13 +6,14 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/22 22:38:43 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 03:38:07 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WORDLE_H
 # define WORDLE_H
 # define _DEFAULT_SOURCE
+
 
 # ifndef VERBOSE
 #  define VERBOSE 0
@@ -21,6 +22,15 @@
 # define GREEN 0
 # define YELLOW 1
 # define GREY 2
+
+# define END 0
+# define TRY_AGAIN 1
+
+# define NO 'n'
+# define YES 'y'
+
+
+
 
 # include "libft/libft.h"
 # include <errno.h>
@@ -38,9 +48,9 @@
 
 typedef struct s_color
 {
-	char	str[5];
+	char	str[6];
 	int		state[5];
-	int		*freq;
+	
 }	t_color;
 
 typedef struct s_data
@@ -50,11 +60,22 @@ typedef struct s_data
 	char	**wordlist;
 	char	*attempts[6];
 	uint	number_of_tries;
+	t_color	*color;
 
 }	Data;
 
 int		parse_input(Data *data, char *input);
-int		check_comparison(Data *data, t_color *color, char *input);
+int		set_colors(Data *data, t_color *color, char *input);
+int 	restart(Data *data);
+void	cleanup(Data *data, int flag);
 
+//PRINT
+void	print_invitation(void);
+void	print_status(t_color *color);
+void	print_lose_message(Data *data);
+void	congrats();
+
+// wordle.h
+extern int g_counter;
 
 #endif
