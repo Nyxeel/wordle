@@ -24,7 +24,7 @@ static ssize_t	count_dictionary_lines(Data *data)
 		printf("file not found!\n");
 		return (-1);
 	}
-	data->wordlist = calloc(12971 + 1, sizeof(char *)); // words.txt has 12972 lines!
+	data->wordlist = calloc(12972 + 1, sizeof(char *)); // words.txt has 12972 lines!
 	if (!data->wordlist)
 		return (close(fd), -1);
 	count = 0;
