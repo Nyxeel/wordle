@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/11 20:26:38 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 03:38:07 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:13:47 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@
 # define NO 'n'
 # define YES 'y'
 
-
+# define RUN 0
+# define LOSE 1
+# define WIN 2
 
 
 # include "libft/libft.h"
@@ -71,9 +73,9 @@ void	cleanup(Data *data, int flag);
 
 //PRINT
 void	print_invitation(void);
-void	print_status(t_color *color);
+void	print_status(t_color *color, Data *data, int status);
 void	print_lose_message(Data *data);
-void	congrats();
+void	congrats(Data *data);
 
 // wordle.h
 extern int g_counter;

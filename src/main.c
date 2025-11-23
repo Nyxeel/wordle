@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/21 22:30:35 by pjelinek          #+#    #+#             */
-/*   Updated: 2025/11/23 03:40:17 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:34:24 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	get_secret_word(Data *data)
 		return (0);
 	rnd_num = (rand() % count);
 	if (VERBOSE)
-		printf("RND NWORD IN LINE: %li\n", rnd_num);
+		printf("RND WORD IN LINE: %li\n", rnd_num);
 	i = 0;
 	line = NULL;
 	while (data->wordlist[i] != NULL)
@@ -142,28 +142,27 @@ int	init_data(Data *data)
 
 int	main(int ac, char **av)
 {
-start:
 	Data	data;
 	char	*line;
 	int		attempt;
-
 	
+start:
 	attempt = 0;
 	(void)av;
 	line = NULL;
+
 	if (ac != 1)
 		return (0);
 	if (!init_data(&data))
 		exit(1);
-	
 	if (!get_secret_word(&data))
 		cleanup(&data, END);
-	if (VERBOSE)
-		printf("SECRET WORD: %s\n", data.secret_word);
 	print_invitation();
 	while (attempt != 6)
 	{
-		print_status(data.color);
+		if(VERBOSE)
+			printf("attempt: %i", attempt);
+		print_status(data.color, &data, RUN);
 		line = get_user_input(&data);
 		if (set_colors(&data, data.color, line))
 		{
@@ -176,13 +175,12 @@ start:
 	if (attempt == 6)
 		print_lose_message(&data);
 	else	
-		congrats();
+		congrats(&data);
 	cleanup(&data, TRY_AGAIN);
 	free(line);
 	line = NULL;
 	if (restart(&data))
 		goto start;	
 	printf("Thanks for gaming!\n");
-
 	return (0);
 }

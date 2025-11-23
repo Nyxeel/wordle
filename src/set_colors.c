@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/22 16:59:37 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 03:32:11 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:23:40 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,16 +16,19 @@
 int	set_colors(Data *data, t_color *color, char *str)
 {
 	int i = 0;
-	static int j = 0;
+	int j = g_counter;
 
 	char	*c = color[j].str;
 	int		freq[128] = {0};
 
 	for(int i = 0; i < 5; i++)
+	{
 		freq[(unsigned char) data->secret_word[i]]++;
+		if (VERBOSE)
+			printf("%c: %i\n", data->secret_word[i], freq[(unsigned char) data->secret_word[i]]);
+	}
 	while (str[i])
 	{
-		// freq[(unsigned char)c[i]] = ft_count_chars(data->secret_word, c[i]);
 		if ((str[i] == data->secret_word[i]))
 		{
 			color[j].str[i] =  str[i];

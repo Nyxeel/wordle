@@ -6,7 +6,7 @@
 /*   By: netrunner <netrunner@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/23 02:13:02 by netrunner         #+#    #+#             */
-/*   Updated: 2025/11/23 03:37:50 by netrunner        ###   ########.fr       */
+/*   Updated: 2025/11/23 04:07:14 by netrunner        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int restart(Data *data)
 				continue;
 			}
 			if (*line == YES)
+			{
+				g_counter = 0;
 				return(free(line), TRY_AGAIN);
+			}
 			else if (*line == NO)
 				return(free(line), END);
 			else
